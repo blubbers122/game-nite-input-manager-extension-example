@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://drp1ou4af11et"]
+
+[ext_resource type="Script" path="res://world.gd" id="1_yeh2t"]
+[ext_resource type="Script" path="res://GameNiteInputManager.gd" id="2_548ya"]
+[ext_resource type="Script" path="res://PlayerManager.gd" id="3_do2ml"]
+[ext_resource type="PackedScene" uid="uid://cpbw6a1tmsgt3" path="res://player.tscn" id="4_fbtth"]
+
+[node name="World" type="Node2D"]
+script = ExtResource("1_yeh2t")
+
+[node name="GameNiteInputManager" type="GameNiteControlpads" parent="."]
+script = ExtResource("2_548ya")
+
+[node name="PlayerManager" type="Node2D" parent="." node_paths=PackedStringArray("input_manager")]
+script = ExtResource("3_do2ml")
+input_manager = NodePath("../GameNiteInputManager")
+player_scene = ExtResource("4_fbtth")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[connection signal="message_received" from="GameNiteInputManager" to="GameNiteInputManager" method="_on_message_received"]
